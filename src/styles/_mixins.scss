@@ -1,4 +1,6 @@
 // 全局 mixins
+
+// button
 @mixin button-size($padding-y, $padding-x, $font-size, $border-radius) {
   padding: $padding-y $padding-x;
   font-size: $font-size;
@@ -33,4 +35,11 @@
     background: $background;
     border-color: $border;
   }
+}
+
+// alert
+@mixin alert-style($color, $background, $border) {
+  color: $color;
+  background: $background;
+  border-color: $border;
 }

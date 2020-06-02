@@ -1,0 +1,40 @@
+.alert {
+  position: relative;
+  padding: $alert-padding-y $alert-padding-x;
+  margin-bottom: $alert-margin-bottom;
+  border: $border-width solid transparent;
+  border-radius: $border-radius;
+}
+
+.alert-success {
+  @include alert-style($white, $success, $success)
+}
+.alert-default {
+  @include alert-style($white, $primary, $primary)
+}
+.alert-danger {
+  @include alert-style($white, $danger, $danger)
+}
+.alert-warning {
+  @include alert-style($white, $warning, $warning)
+}
+
+.alert-description {
+  display: none;
+  font-size: $font-size-sm;
+  line-height: $line-height-base;
+}
+.alert-with-description {
+  .alert-description {
+    display: block;
+  }
+}
+
+.alert-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: $alert-padding-y $alert-padding-x;
+  color: inherit;
+  cursor: pointer;
+}
