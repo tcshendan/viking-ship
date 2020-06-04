@@ -1,6 +1,8 @@
 import React from 'react'
 import Button, { ButtonType, ButtonSize } from './components/Button/button'
 import Alert, { AlertType } from './components/Alert/alert'
+import Menu from './components/Menu/menu'
+import MenuItem from './components/Menu/menuItem'
 
 const App: React.FC = () => {
   const onClose = () => {
@@ -10,6 +12,34 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
+        <Menu
+          defaultIndex={0}
+        >
+          <MenuItem index={0}>
+            cool link
+          </MenuItem>
+          <MenuItem index={1}>
+            cool link 2
+          </MenuItem>
+          <MenuItem index={2}>
+            cool link 3
+          </MenuItem>
+        </Menu>
+        <Menu
+          mode="vertical"
+          defaultIndex={0}
+          onSelect={(index) => {console.log(index)}}
+        >
+          <MenuItem index={0}>
+            cool link
+          </MenuItem>
+          <MenuItem index={1}>
+            cool link 2
+          </MenuItem>
+          <MenuItem index={2}>
+            cool link 3
+          </MenuItem>
+        </Menu>
         <Button className="custom"> Hello </Button>
         <Button disabled> Disabled Button </Button>
         <Button btnType={ButtonType.Primary} size={ButtonSize.Large}> Large Primary </Button>
@@ -33,7 +63,7 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
-      </header>
+      </header> 
     </div>
   )
 }
