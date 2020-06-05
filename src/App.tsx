@@ -3,6 +3,7 @@ import Button, { ButtonType, ButtonSize } from './components/Button/button'
 import Alert, { AlertType } from './components/Alert/alert'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
+import SubMenu from './components/Menu/subMenu'
 
 const App: React.FC = () => {
   const onClose = () => {
@@ -13,30 +14,26 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <Menu
-          defaultIndex={0}
-        >
-          <MenuItem index={0}>
-            cool link
-          </MenuItem>
-          <MenuItem index={1}>
-            cool link 2
-          </MenuItem>
-          <MenuItem index={2}>
-            cool link 3
-          </MenuItem>
-        </Menu>
-        <Menu
-          mode="vertical"
-          defaultIndex={0}
+          defaultIndex={'0'}
           onSelect={(index) => {console.log(index)}}
+          mode="horizontal"
+          defaultOpenSubMenus={['2']}
         >
-          <MenuItem index={0}>
+          <MenuItem>
             cool link
           </MenuItem>
-          <MenuItem index={1}>
+          <MenuItem>
             cool link 2
           </MenuItem>
-          <MenuItem index={2}>
+          <SubMenu title="dropdown">
+            <MenuItem>
+              dropdown 1
+            </MenuItem>
+            <MenuItem>
+              dropdown 2
+            </MenuItem>
+          </SubMenu>
+          <MenuItem>
             cool link 3
           </MenuItem>
         </Menu>
