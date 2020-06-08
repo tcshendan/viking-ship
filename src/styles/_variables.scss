@@ -291,3 +291,14 @@ $progress-bar-transition:           width .6s ease !default;
 $alert-padding-y:               .75rem !default;
 $alert-padding-x:               1.25rem !default;
 $alert-margin-bottom:           1rem !default;
+
+// tab
+$tab-border-width:              $border-width !default;
+$tab-border-color:              $border-color !default;
+
+// tab-item
+$tab-item-padding-y:            .5rem !default;
+$tab-item-padding-x:            1rem !default;
+$tab-item-active-color:         $primary !default;
+$tab-item-active-border-width:  2px !default;
+$tab-item-disabled-color:       $gray-600 !default;

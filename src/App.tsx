@@ -4,6 +4,8 @@ import Alert, { AlertType } from './components/Alert/alert'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
+import Tabs from './components/Tabs/tabs'
+import TabItem from './components/Tabs/tabItem'
 
 const App: React.FC = () => {
   const onClose = () => {
@@ -12,38 +14,79 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <Menu
-          defaultIndex={'0'}
-          onSelect={(index) => {console.log(index)}}
-          mode="horizontal"
-          defaultOpenSubMenus={['2']}
-        >
-          <MenuItem>
-            cool link
-          </MenuItem>
-          <MenuItem>
-            cool link 2
-          </MenuItem>
-          <SubMenu title="dropdown">
+      <header className="App-header" style={{paddingLeft: 20}}>
+        <div style={{marginTop: 20}}>
+          <Tabs
+            defaultIndex={0}
+            onSelect={(index) => { console.log('selected: ', index) }}
+            type="line"
+          >
+            <TabItem label="选项卡一">
+              this is content one
+            </TabItem>
+            <TabItem label="选项卡二">
+              this is content two
+            </TabItem>
+            <TabItem label="选项卡三">
+              this is content three
+            </TabItem>
+          </Tabs>
+        </div>
+        <div style={{marginTop: 20}}>
+          <Tabs
+            defaultIndex={0}
+            onSelect={(index) => { console.log('selected: ', index) }}
+            type="card"
+          >
+            <TabItem label="card1">
+              this is card one
+            </TabItem>
+            <TabItem label="card2">
+              this is content two
+            </TabItem>
+            <TabItem
+              disabled
+              label="disabled"
+            >
+              this is content three
+            </TabItem>
+          </Tabs>
+        </div>
+        <div style={{marginTop: 20}}>
+          <Menu
+            defaultIndex={'0'}
+            onSelect={(index) => {console.log(index)}}
+            mode="horizontal"
+            defaultOpenSubMenus={['2']}
+          >
             <MenuItem>
-              dropdown 1
+              cool link
             </MenuItem>
             <MenuItem>
-              dropdown 2
+              cool link 2
             </MenuItem>
-          </SubMenu>
-          <MenuItem>
-            cool link 3
-          </MenuItem>
-        </Menu>
-        <Button className="custom"> Hello </Button>
-        <Button disabled> Disabled Button </Button>
-        <Button btnType={ButtonType.Primary} size={ButtonSize.Large}> Large Primary </Button>
-        <Button btnType={ButtonType.Danger} size={ButtonSize.Small}> Small Danger </Button>
-        <Button btnType={ButtonType.Link} href="http://www.baidu.com" target="_blank"> Baidu Link </Button>
-        <Button btnType={ButtonType.Link} href="http://www.baidu.com" disabled> Disabled Link </Button>
-        <div style={{width: 420, marginTop: 20}}>
+            <SubMenu title="dropdown">
+              <MenuItem>
+                dropdown 1
+              </MenuItem>
+              <MenuItem>
+                dropdown 2
+              </MenuItem>
+            </SubMenu>
+            <MenuItem>
+              cool link 3
+            </MenuItem>
+          </Menu>
+        </div>
+        <div style={{marginTop: 20}}>
+          <Button className="custom"> Hello </Button>
+          <Button disabled> Disabled Button </Button>
+          <Button btnType={ButtonType.Primary} size={ButtonSize.Large}> Large Primary </Button>
+          <Button btnType={ButtonType.Danger} size={ButtonSize.Small}> Small Danger </Button>
+          <Button btnType={ButtonType.Link} href="http://www.baidu.com" target="_blank"> Baidu Link </Button>
+          <Button btnType={ButtonType.Link} href="http://www.baidu.com" disabled> Disabled Link </Button>
+        </div>
+        <div style={{marginTop: 20, width: 450}}>
           <Alert title="Success Tips" description="Detailed description and advice about successful copywriting." type={AlertType.Success} closable={false} />
           <Alert title="Informational Notes" description="Additional description and information about copywriting." closable onClose={onClose} />
           <Alert title="Danger" type={AlertType.Danger} />

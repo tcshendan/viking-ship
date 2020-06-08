@@ -1,0 +1,48 @@
+.tabs {
+  >.tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    border-bottom: $tab-border-width solid $tab-border-color;
+    .tabs-nav-item {
+      display: block;
+      padding: $tab-item-padding-y $tab-item-padding-x;
+      cursor: pointer;
+        &.is-active {
+          color: $tab-item-active-color;
+        }
+        &.disabled {
+          color: $tab-item-disabled-color;
+          pointer-events: none;
+          cursor: default;
+          background-color: transparent;
+          border-color: transparent;
+        }
+      }
+    }
+  >.tabs-content {
+    margin-top: 1rem;
+  }
+}
+
+.nav-line {
+  >.tabs-nav-item {
+    &.is-active {
+      border-bottom: $tab-item-active-border-width solid $tab-item-active-color;
+    }
+  }
+}
+.nav-card {
+  >.tabs-nav-item {
+    border: $tab-border-width solid transparent;
+    margin-bottom: -1px;
+    &.is-active {
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+      background-color: #fff;
+      border-color: $tab-border-color $tab-border-color $white;
+    }
+  }
+}
