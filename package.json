@@ -17,7 +17,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "react-transition-group": "^4.4.1",
+    "react-transition-group": "^4.3.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
+    "@types/react-transition-group": "^4.2.3",
     "node-sass": "^4.14.1"
   }
 }

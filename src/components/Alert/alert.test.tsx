@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import Alert, { AlertType, AlertProps } from './alert'
+import Alert, { AlertProps } from './alert'
 
 const defaultProps: AlertProps = {
   title: 'this is default alert',
@@ -9,7 +9,7 @@ const defaultProps: AlertProps = {
 
 const testProps: AlertProps = {
   title: 'Success',
-  type: AlertType.Success,
+  type: 'success',
   className: 'klass'
 }
 

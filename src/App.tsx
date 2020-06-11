@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import Button, { ButtonType, ButtonSize } from './components/Button/button'
-import Alert, { AlertType } from './components/Alert/alert'
+import Button from './components/Button/button'
+import Alert from './components/Alert/alert'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
 import Tabs from './components/Tabs/tabs'
 import TabItem from './components/Tabs/tabItem'
 import Icon from './components/Icon/icon'
+import Transition from './components/Transition/transition'
 library.add(fas)
 
 const App: React.FC = () => {
+  const [ show, setShow ] = useState(false)
   const onClose = () => {
     console.log('I was closed !')
   }
@@ -86,20 +88,40 @@ const App: React.FC = () => {
         <div style={{marginTop: 20}}>
           <Button className="custom"> Hello </Button>
           <Button disabled> Disabled Button </Button>
-          <Button btnType={ButtonType.Primary} size={ButtonSize.Large}> Large Primary </Button>
-          <Button btnType={ButtonType.Danger} size={ButtonSize.Small}> Small Danger </Button>
-          <Button btnType={ButtonType.Link} href="http://www.baidu.com" target="_blank"> Baidu Link </Button>
-          <Button btnType={ButtonType.Link} href="http://www.baidu.com" disabled> Disabled Link </Button>
+          <Button btnType='primary' size="lg"> Large Primary </Button>
+          <Button btnType="danger" size="sm"> Small Danger </Button>
+          <Button btnType="link" href="http://www.baidu.com" target="_blank"> Baidu Link </Button>
+          <Button btnType="link" href="http://www.baidu.com" disabled> Disabled Link </Button>
         </div>
         <div style={{marginTop: 20, width: 450}}>
-          <Alert title="Success Tips" description="Detailed description and advice about successful copywriting." type={AlertType.Success} closable={false} />
+          <Alert title="Success Tips" description="Detailed description and advice about successful copywriting." type="success" closable={false} />
           <Alert title="Informational Notes" description="Additional description and information about copywriting." closable onClose={onClose} />
-          <Alert title="Danger" type={AlertType.Danger} />
-          <Alert title="Warning" type={AlertType.Warning} closable={false} />
+          <Alert title="Danger" type="danger" />
+          <Alert title="Warning" type="danger" closable={false} />
         </div>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <Button size="lg" onClick={() => { setShow(!show) }}> Toggle </Button>
+        <Transition
+          in={show}
+          timeout={300}
+          animation="zoom-in-left"
+        >
+          <div>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+          </div>
+        </Transition>
+        <Transition
+          in={show}
+          timeout={300}
+          animation="zoom-in-top"
+          wrapper
+        >
+          <Button btnType="primary" size="lg"> A Large Button </Button>
+        </Transition>
         <a
           className="App-link"
           href="https://reactjs.org"
