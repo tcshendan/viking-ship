@@ -1,4 +1,6 @@
 import React from 'react'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import Button, { ButtonType, ButtonSize } from './components/Button/button'
 import Alert, { AlertType } from './components/Alert/alert'
 import Menu from './components/Menu/menu'
@@ -6,6 +8,8 @@ import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
 import Tabs from './components/Tabs/tabs'
 import TabItem from './components/Tabs/tabItem'
+import Icon from './components/Icon/icon'
+library.add(fas)
 
 const App: React.FC = () => {
   const onClose = () => {
@@ -15,6 +19,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header" style={{paddingLeft: 20}}>
+        <Icon icon="coffee" theme="danger" size="10x" />
         <div style={{marginTop: 20}}>
           <Tabs
             defaultIndex={0}
