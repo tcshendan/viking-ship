@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
+import Icon from '../Icon/icon'
+import Transition from '../Transition/transition'
 
 export type AlertType = 'success' | 'default' | 'danger' | 'warning'
 
@@ -33,12 +35,25 @@ const Alert: React.FC<AlertProps> = (props) => {
     onClose && onClose()
   }
 
-  return closed ? null : (
-    <div className={classes}>
-      <span className='alert-title'>{title}</span>
-      <span className='alert-description'>{description}</span>
-      {closable ? <span className='alert-close' onClick={handleClose}>关闭</span> : null}
-    </div>
+  return (
+    <Transition
+      in={!closed}
+      timeout={300}
+      animation="zoom-in-top"
+      wrapper
+    >
+      <div className={classes}>
+        <span className='alert-title'>{title}</span>
+        <span className='alert-description'>{description}</span>
+        {
+          closable
+            ? <span className='alert-close' onClick={handleClose}>
+                <Icon icon="times" size="1x" />
+              </span> 
+            : null
+        }
+      </div>
+    </Transition>
   )
 }
 

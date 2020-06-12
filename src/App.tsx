@@ -94,10 +94,10 @@ const App: React.FC = () => {
           <Button btnType="link" href="http://www.baidu.com" disabled> Disabled Link </Button>
         </div>
         <div style={{marginTop: 20, width: 450}}>
-          <Alert title="Success Tips" description="Detailed description and advice about successful copywriting." type="success" closable={false} />
-          <Alert title="Informational Notes" description="Additional description and information about copywriting." closable onClose={onClose} />
+          <Alert title="Success" type="success" description="Detailed description and advice about successful copywriting." closable={false} />
+          <Alert title="default" description="Additional description and information about copywriting." closable onClose={onClose} />
           <Alert title="Danger" type="danger" />
-          <Alert title="Warning" type="danger" closable={false} />
+          <Alert title="Warning" type="warning" closable={false} />
         </div>
         <Button size="lg" onClick={() => { setShow(!show) }}> Toggle </Button>
         <Transition
