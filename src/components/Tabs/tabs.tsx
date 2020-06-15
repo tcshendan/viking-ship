@@ -1,4 +1,4 @@
-import React, { createContext, useState, FunctionComponentElement } from 'react'
+import React, { createContext, useState, FunctionComponentElement, FC } from 'react'
 import classNames from 'classnames'
 import { TabItemProps } from './tabItem'
 
@@ -6,9 +6,13 @@ type NavType = 'line' | 'card'
 type SelectCallback = (selectedIndex: number) => void
 
 export interface TabsProps {
+  /** 当前激活 tab 面板的 index，默认为0 */
   defaultIndex?: number,
+  /** 可以扩展的 className */
   className?: string,
+  /** Tabs的样式，两种可选，默认为 line */
   type?: NavType,
+  /** 点击 Tab 触发的回调函数 */
   onSelect?: SelectCallback
 }
 
@@ -18,7 +22,15 @@ interface ITabsContext {
 }
 
 export const TabsContext = createContext<ITabsContext>({ index: 0 })
-const Tabs: React.FC<TabsProps> = (props) => {
+/**
+ * 选项卡切换组件。 提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
+ * ### 引用方法
+ * 
+ * ~~~js
+ * import { Tabs } from 'vikingship'
+ * ~~~
+ */
+export const Tabs: FC<TabsProps> = (props) => {
   const {
     defaultIndex,
     className,
@@ -77,4 +89,4 @@ Tabs.defaultProps = {
   type: 'line'
 }
 
-export default Tabs
+export default Tabs;

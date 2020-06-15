@@ -1,15 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext, FC } from 'react'
 import classNames from 'classnames'
 import { TabsContext } from './tabs'
 
 export interface TabItemProps {
   index?: number,
-  label: string,
+  /** Tab选项上面的文字 */
+  label: string | JSX.Element,
+  /** Tab选项是否被禁用 */
   disabled?: boolean,
   children?: React.ReactNode
 }
 
-const TabItem: React.FC<TabItemProps> = (props) => {
+export const TabItem: FC<TabItemProps> = (props) => {
   const {
     index,
     label,
@@ -35,4 +37,4 @@ const TabItem: React.FC<TabItemProps> = (props) => {
 
 TabItem.displayName = 'TabItem'
 
-export default TabItem
+export default TabItem;

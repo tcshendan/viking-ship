@@ -1,10 +1,14 @@
 import { configure, addDecorator, addParameters } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import React from 'react'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import '../src/styles/index.scss'
+library.add(fas)
 
 const wrapperStyle: React.CSSProperties = {
-  padding: '20px 40px'
+  padding: '20px 40px',
+  width: '500px',
 }
 
 const storyWrapper = (storyFn: any) => (
