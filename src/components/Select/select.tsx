@@ -1,6 +1,7 @@
 import React, { FC, useState, useRef, createContext, FunctionComponentElement, MouseEvent } from 'react'
 import classNames from 'classnames'
 import Input, { InputProps } from '../Input/input'
+import Icon from '../Icon/icon'
 import Transition from '../Transition/transition'
 import { OptionProps } from './option'
 import useClickOutside from '../../hooks/useClickOutside'
@@ -25,7 +26,8 @@ export interface SelectProps extends Omit<InputProps, 'onChange'> {
 }
 interface ISelectContext {
   value: ValueType,
-  onSelect: SelectCallback
+  selectedTags?: string[]
+  onSelect: (selectedValue: string) => void
 }
 
 export const SelectContext = createContext<ISelectContext>({ value: '', onSelect: () => {} })
@@ -41,6 +43,8 @@ export const SelectContext = createContext<ISelectContext>({ value: '', onSelect
 export const Select: FC<SelectProps> = (props) => {
   const {
     defaultValue,
+    disabled,
+    multiple,
     name,
     placeholder,
     onChange,
@@ -49,15 +53,18 @@ export const Select: FC<SelectProps> = (props) => {
   } = props
   const [ menuOpen, setMenuOpen ] = useState(false)
   const [ inputValue, setInputValue ] = useState(defaultValue as ValueType)
+  const [ inputPlaceholder, setInputPlaceholder ] = useState(placeholder)
+  const [ selectedTags, setSelectedTags ] = useState<string[]>([])
   const componentRef = useRef<HTMLDivElement>(null)
   useClickOutside(componentRef, () => {
     setMenuOpen(false)
-    if (onVisibleChange) {
+    if (menuOpen && onVisibleChange) {
       onVisibleChange(false)
     }
   })
   const classes = classNames('select', {
-    'menu-is-open': menuOpen
+    'menu-is-open': menuOpen,
+    'is-disabled': disabled
   })
   const handleClick = (e?: MouseEvent) => {
     e?.preventDefault()
@@ -66,15 +73,38 @@ export const Select: FC<SelectProps> = (props) => {
       onVisibleChange(!menuOpen)
     }
   }
-  const handleChange = (selectedValue: string, selectedValues: string[]) => {
-    setInputValue(selectedValue)
-    handleClick()
-    if (onChange) {
-      onChange(selectedValue, selectedValues)
+  const handleChange = (selectedValue: string) => {
+    if (multiple) {
+      let newSelectedTags
+      const index = selectedTags.findIndex(item => item === selectedValue)
+      if (index > -1) {
+        newSelectedTags = selectedTags.filter(item => item !== selectedValue)
+      } else {
+        newSelectedTags = [...selectedTags, selectedValue]
+      }
+      setSelectedTags(newSelectedTags)
+      if (newSelectedTags.length > 0) {
+        setInputPlaceholder('')
+      } else {
+        setInputPlaceholder(placeholder)
+      }
+      if (onChange) {
+        onChange(selectedValue, newSelectedTags)
+      }
+    } else {
+      setInputValue(selectedValue)
+      handleClick()
+      if (onChange) {
+        onChange(selectedValue, [selectedValue])
+      }
     }
+  }
+  const handleClose = (e: MouseEvent, tagName: string) => {
+    handleChange(tagName)
   }
   const passedContext: ISelectContext = {
     value: inputValue,
+    selectedTags: selectedTags,
     onSelect: handleChange
   }
   const renderChildren = () => {
@@ -105,19 +135,37 @@ export const Select: FC<SelectProps> = (props) => {
       </Transition>
     )
   }
+  const generateSelectedTags = () => {
+    return (
+      <div className="selected-tags" style={{maxWidth: 388}}>
+        {
+          selectedTags.map((item, index) => {
+            return (
+              <span className="tag" key={index}>
+                {item}
+                <Icon icon="times" onClick={(e) => handleClose(e, item)} />
+              </span>
+            )
+          })
+        }
+      </div>
+    )
+  }
   return (
     <div className={classes} ref={componentRef}>
       <div className="select-input">
         <Input
           icon="angle-down"
-          placeholder={placeholder}
+          placeholder={inputPlaceholder}
           readOnly
+          disabled={disabled}
           name={name}
           value={inputValue}
           onClick={handleClick}
         />
       </div>
       {generateDropdown()}
+      {generateSelectedTags()}
     </div>
   )
 }

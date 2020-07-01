@@ -1,5 +1,6 @@
 import React, { FC, useContext, MouseEvent } from 'react'
 import classNames from 'classnames'
+import Icon from '../Icon/icon'
 import { SelectContext } from './select'
 
 export interface OptionProps {
@@ -19,17 +20,22 @@ export const Option: FC<OptionProps> = (props) => {
     disabled
   } = props
   const context = useContext(SelectContext)
+  const isSelected = context.selectedTags!.findIndex(item => item === value) > -1
   const classes = classNames('select-item', {
     'is-disabled': disabled,
-    'is-active': value === context.value
+    'is-active': value === context.value,
+    'is-selected': isSelected
   })
   const handleClick = (e: MouseEvent) => {
     if (context.onSelect && !disabled) {
-      context.onSelect(value, [value])
+      context.onSelect(value)
     }
   }
   return (
-    <li className={classes} onClick={handleClick}>{label ? label : value}</li>
+    <li className={classes} onClick={handleClick}>
+      { label ? label : value }
+      { isSelected && <Icon icon="check" /> }
+    </li>
   )
 }
 
