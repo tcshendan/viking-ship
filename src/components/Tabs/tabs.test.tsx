@@ -36,7 +36,7 @@ describe('test Tabs and TabItem component', () => {
   beforeEach(() => {
     wrapper = render(generateTabs(testProps))
     tabsElement = wrapper.getByTestId('test-tabs')
-    tabsNavElement = wrapper.container.getElementsByTagName('ul')[0]
+    tabsNavElement = wrapper.container.querySelector('.tabs-nav') as HTMLElement
     tabsContentElement = wrapper.getByText('this is content one')
     activeElement = wrapper.getByText('active')
     disabledElement = wrapper.getByText('disabled')
@@ -64,7 +64,7 @@ describe('test Tabs and TabItem component', () => {
     cleanup()
     wrapper = render(generateTabs(testCardProps))
     tabsElement = wrapper.getByTestId('test-tabs')
-    tabsNavElement = wrapper.container.getElementsByTagName('ul')[0]
+    tabsNavElement = wrapper.container.querySelector('.tabs-nav') as HTMLElement
     expect(tabsElement).toBeInTheDocument()
     expect(tabsNavElement).toHaveClass('nav-card')
   })

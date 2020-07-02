@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, RenderResult, fireEvent } from '@testing-library/react'
 import Alert, { AlertProps } from './alert'
 
 const defaultProps: AlertProps = {
@@ -24,34 +24,35 @@ const closableProps: AlertProps = {
   onClose: jest.fn()
 }
 
+let wrapper: RenderResult, element: HTMLDivElement, closeSpan: HTMLSpanElement
 describe('test Alert component', () => {
   it('should render the correct default alert without close', () => {
-    const wrapper = render(<Alert {...defaultProps} />)
-    const element = wrapper.container.querySelector('.alert')
+    wrapper = render(<Alert {...defaultProps} />)
+    element = wrapper.container.querySelector('.alert') as HTMLDivElement
     expect(element).toBeInTheDocument()
     expect(element).toHaveClass('alert alert-default')
-    const closeSpan = wrapper.container.querySelector('.alert-close') as HTMLSpanElement
+    closeSpan = wrapper.container.querySelector('.alert-close') as HTMLSpanElement
     expect(closeSpan).not.toBeInTheDocument()
   })
   it('should render the correct alert based on different props', () => {
-    const wrapper = render(<Alert {...testProps} />)
-    const element = wrapper.container.querySelector('.alert')
+    wrapper = render(<Alert {...testProps} />)
+    element = wrapper.container.querySelector('.alert') as HTMLDivElement
     expect(element).toBeInTheDocument()
     expect(element).toHaveClass('alert-success klass')
   })
   it('should render the correct alert width description', () => {
-    const wrapper = render(<Alert {...widthDescriptionProps} />)
-    const element = wrapper.container.querySelector('.alert')
+    wrapper = render(<Alert {...widthDescriptionProps} />)
+    element = wrapper.container.querySelector('.alert') as HTMLDivElement
     expect(element).toBeInTheDocument()
     expect(element).toHaveClass('alert-with-description')
     const descriptionSpan = wrapper.container.querySelector('.alert-description') as HTMLSpanElement
     expect(descriptionSpan).toBeInTheDocument()
   })
   it('should render the closable alert when onClose have to be called ', () => {
-    const wrapper = render(<Alert {...closableProps} />)
-    const element = wrapper.container.querySelector('.alert')
+    wrapper = render(<Alert {...closableProps} />)
+    element = wrapper.container.querySelector('.alert') as HTMLDivElement
     expect(element).toBeInTheDocument()
-    const closeSpan = wrapper.container.querySelector('.alert-close') as HTMLSpanElement
+    closeSpan = wrapper.container.querySelector('.alert-close') as HTMLSpanElement
     fireEvent.click(closeSpan)
     expect(closableProps.onClose).toHaveBeenCalled()
   })

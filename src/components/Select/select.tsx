@@ -165,7 +165,7 @@ export const Select: FC<SelectProps> = (props) => {
         />
       </div>
       {generateDropdown()}
-      {generateSelectedTags()}
+      {multiple && generateSelectedTags()}
     </div>
   )
 }

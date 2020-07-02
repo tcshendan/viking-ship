@@ -1,6 +1,6 @@
 import React from 'react'
 import { config } from 'react-transition-group'
-import { render, RenderResult, fireEvent, wait } from '@testing-library/react'
+import { render, RenderResult, fireEvent, wait, cleanup } from '@testing-library/react'
 import AutoComplete, { AutoCompleteProps } from './autoComplete'
 
 config.disabled = true
@@ -17,6 +17,25 @@ const testProps: AutoCompleteProps = {
   onSelect: jest.fn(),
   placeholder: 'auto-complete'
 }
+
+const renderOptionProps: AutoCompleteProps = {
+  fetchSuggestions: (query) => { return testArray.filter(item => item.value.includes(query)) },
+  placeholder: 'render option autoComplete',
+  renderOption: item => <React.Fragment><b>value值：{item.value}</b></React.Fragment>
+}
+
+// const handleFetch = (query: string) => {
+//   return fetch('https://api.github.com/search/users?q='+ query)
+//     .then(res => res.json())
+//     .then(({ items }) => {
+//       return items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }))
+//     })
+// }
+// const asyncFetchProps: AutoCompleteProps = {
+//   fetchSuggestions: handleFetch,
+//   onSelect: jest.fn(),
+//   placeholder: 'async fetchSuggestions autoComplete'
+// }
 
 let wrapper: RenderResult, inputNode: HTMLInputElement
 describe('test AutoComplete component', () => {
@@ -71,9 +90,23 @@ describe('test AutoComplete component', () => {
     expect(wrapper.queryByText('ab')).not.toBeInTheDocument()
   })
   it('renderOption should generate the right template', async () => {
-
+    cleanup()
+    wrapper = render(<AutoComplete {...renderOptionProps}/>)
+    inputNode = wrapper.getByPlaceholderText('render option autoComplete') as HTMLInputElement
+    // input change
+    fireEvent.change(inputNode, { target: { value: 'a' } })
+    await wait(() => {
+      expect(wrapper.queryByText('value值：ab')).toBeInTheDocument()
+    })
   })
-  it('async fetchSuggestions should works fine', () => {
-
+  it('async fetchSuggestions should works fine', async () => {
+    // cleanup()
+    // wrapper = render(<AutoComplete {...asyncFetchProps}/>)
+    // inputNode = wrapper.getByPlaceholderText('async fetchSuggestions autoComplete') as HTMLInputElement
+    // // input change
+    // fireEvent.change(inputNode, { target: { value: 'abcd' } })
+    // await wait(() => {
+    //   expect(wrapper.queryByText('abcd')).toBeInTheDocument()
+    // })
   })
 })
