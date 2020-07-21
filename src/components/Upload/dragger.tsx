@@ -9,7 +9,7 @@ export const Dragger: FC<DraggerProps> = (props) => {
   const { onFile, children } = props
   const [ dragOver, setDragOver ] = useState(false)
   const classes = classNames('uploader-dragger', {
-    'is-dragOver': dragOver
+    'is-dragover': dragOver
   })
   const handleDrop = (e: DragEvent<HTMLElement>) => {
     e.preventDefault()
